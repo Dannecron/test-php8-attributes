@@ -7,6 +7,7 @@ namespace App\Operation;
 use App\Service\CachedJokes;
 use App\Service\JokeInterface;
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class JokeOperation
 {
@@ -16,6 +17,11 @@ class JokeOperation
     ) {
     }
 
+    /**
+     * Get text of random joke
+     * @return string
+     * @throws InvalidArgumentException
+     */
     public function getRandomJoke(): string
     {
         $reflection = new \ReflectionClass($this->jokeService);

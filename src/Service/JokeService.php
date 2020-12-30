@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -13,11 +16,14 @@ use Psr\Http\Message\ResponseInterface;
 class JokeService implements JokeInterface
 {
     public function __construct(
-        protected \GuzzleHttp\Client $guzzleClient
+        protected Client $guzzleClient
     ) {
     }
 
-    #[CachedJokes]
+    /**
+     * @return array
+     * @throws GuzzleException
+     */
     public function getRandomJoke(): array
     {
         $response = $this->sendRequest(static::CATEGORY_ANY);
@@ -25,11 +31,16 @@ class JokeService implements JokeInterface
         return \json_decode($responseContent, true);
     }
 
+    /**
+     * @param string ...$categories
+     * @return ResponseInterface
+     * @throws GuzzleException
+     */
     protected function sendRequest(string ...$categories): ResponseInterface
     {
         $categoriesStr = implode(',', $categories);
         return $this->guzzleClient->get("/joke/{$categoriesStr}", [
-            \GuzzleHttp\RequestOptions::QUERY => [
+            RequestOptions::QUERY => [
                 'format' => 'json',
                 'amount' => 1,
                 'type' => 'single',
