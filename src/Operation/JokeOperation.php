@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Operation;
 
-use App\Service\CachedJokes;
+use App\Service\Attribute\CachedJokes;
 use App\Service\JokeInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
