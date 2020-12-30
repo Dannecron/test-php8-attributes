@@ -8,13 +8,10 @@ use App\Operation\JokeOperation;
 
 class JokeCommand extends \Ahc\Cli\Input\Command
 {
-    private JokeOperation $jokeOperation;
-
-    public function __construct(JokeOperation $jokeOperation)
-    {
+    public function __construct(
+        private JokeOperation $jokeOperation
+    ) {
         parent::__construct('joke', 'Get some joke');
-
-        $this->jokeOperation = $jokeOperation;
     }
 
     public function execute(): void

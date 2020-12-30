@@ -10,13 +10,10 @@ use Psr\SimpleCache\CacheInterface;
 
 class JokeOperation
 {
-    protected JokeInterface $jokeService;
-    protected CacheInterface $cache;
-
-    public function __construct(JokeInterface $jokeService, CacheInterface $cache)
-    {
-        $this->jokeService = $jokeService;
-        $this->cache = $cache;
+    public function __construct(
+        protected JokeInterface $jokeService,
+        protected CacheInterface $cache
+    ) {
     }
 
     public function getRandomJoke(): string

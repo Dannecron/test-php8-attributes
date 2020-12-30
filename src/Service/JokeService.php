@@ -12,11 +12,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 class JokeService implements JokeInterface
 {
-    protected \GuzzleHttp\Client $guzzleClient;
-
-    public function __construct(\GuzzleHttp\Client $guzzleClient)
-    {
-        $this->guzzleClient = $guzzleClient;
+    public function __construct(
+        protected \GuzzleHttp\Client $guzzleClient
+    ) {
     }
 
     #[CachedJokes]
